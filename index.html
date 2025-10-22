@@ -13,7 +13,7 @@
       color: #333;
     }
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
       background: #fff;
       padding: 20px;
@@ -93,7 +93,7 @@
 
     <div class="section">
       <div class="label">Search Inventory:</div>
-      <input type="text" id="searchBox" placeholder="Search by ID, piece, or description..." onkeyup="filterInventory()" />
+      <input type="text" id="searchBox" placeholder="Search by EAM #, piece, or location..." onkeyup="filterInventory()" />
     </div>
 
     <div class="section">
@@ -101,10 +101,12 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>EAM #</th>
             <th>Piece #</th>
             <th>Designation</th>
             <th>Description</th>
+            <th>Row</th>
+            <th>Column</th>
           </tr>
         </thead>
         <tbody id="beltInventoryTable"></tbody>
@@ -120,22 +122,28 @@
   <script>
     const beltInventory = [
       {
-        id: "U03001B-1",
+        eam: "",
         piece: "1104328400",
-        designation: "COURROIE PLATE",
-        description: "FLAT BELT 35/6X5060"
+        designation: "R01-C01",
+        description: "35/6X5060",
+        row: "01",
+        column: "01"
       },
       {
-        id: "U03001B-2",
+        eam: "",
         piece: "1104326800",
-        designation: "COURROIE PLATE",
-        description: "FLAT BELT 40/6.5X1640"
+        designation: "R01-C02",
+        description: "40/6.5X1640",
+        row: "01",
+        column: "02"
       },
       {
-        id: "U03001B-3",
+        eam: "",
         piece: "1104326500",
-        designation: "COURROIE CRANTEE",
-        description: "TOOTHED BELT 1600-8M-30 35/6X5060"
+        designation: "R01-C03",
+        description: "1600-8M-30 35/6X5060",
+        row: "01",
+        column: "03"
       }
     ];
 
@@ -146,10 +154,12 @@
       data.forEach(belt => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${belt.id}</td>
+          <td>${belt.eam}</td>
           <td>${belt.piece}</td>
           <td>${belt.designation}</td>
           <td>${belt.description}</td>
+          <td>${belt.row}</td>
+          <td>${belt.column}</td>
         `;
         tableBody.appendChild(row);
       });
@@ -158,18 +168,17 @@
     function filterInventory() {
       const query = document.getElementById("searchBox").value.toLowerCase();
       const filtered = beltInventory.filter(belt =>
-        belt.id.toLowerCase().includes(query) ||
+        belt.eam.toLowerCase().includes(query) ||
         belt.piece.toLowerCase().includes(query) ||
         belt.designation.toLowerCase().includes(query) ||
-        belt.description.toLowerCase().includes(query)
+        belt.description.toLowerCase().includes(query) ||
+        belt.row.toLowerCase().includes(query) ||
+        belt.column.toLowerCase().includes(query)
       );
       renderTable(filtered);
     }
 
-    // Auto-update timestamp
     document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString();
-
-    // Initial render
     renderTable(beltInventory);
   </script>
 </body>
