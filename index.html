@@ -118,4 +118,59 @@
   </div>
 
   <script>
-   renderTable(beltInventory);
+    const beltInventory = [
+      {
+        id: "U03001B-1",
+        piece: "1104328400",
+        designation: "COURROIE PLATE",
+        description: "FLAT BELT 35/6X5060"
+      },
+      {
+        id: "U03001B-2",
+        piece: "1104326800",
+        designation: "COURROIE PLATE",
+        description: "FLAT BELT 40/6.5X1640"
+      },
+      {
+        id: "U03001B-3",
+        piece: "1104326500",
+        designation: "COURROIE CRANTEE",
+        description: "TOOTHED BELT 1600-8M-30 35/6X5060"
+      }
+    ];
+
+    const tableBody = document.getElementById("beltInventoryTable");
+
+    function renderTable(data) {
+      tableBody.innerHTML = "";
+      data.forEach(belt => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${belt.id}</td>
+          <td>${belt.piece}</td>
+          <td>${belt.designation}</td>
+          <td>${belt.description}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function filterInventory() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const filtered = beltInventory.filter(belt =>
+        belt.id.toLowerCase().includes(query) ||
+        belt.piece.toLowerCase().includes(query) ||
+        belt.designation.toLowerCase().includes(query) ||
+        belt.description.toLowerCase().includes(query)
+      );
+      renderTable(filtered);
+    }
+
+    // Auto-update timestamp
+    document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString();
+
+    // Initial render
+    renderTable(beltInventory);
+  </script>
+</body>
+</html>
