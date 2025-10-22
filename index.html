@@ -13,7 +13,7 @@
       color: #333;
     }
     .container {
-      max-width: 700px;
+      max-width: 900px;
       margin: auto;
       background: #fff;
       padding: 20px;
@@ -32,20 +32,6 @@
       font-weight: bold;
       margin-bottom: 5px;
     }
-    .status {
-      padding: 10px;
-      background: #e0f7fa;
-      border: 1px solid #b2ebf2;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-    a {
-      color: #0057b8;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
     .branding {
       position: absolute;
       top: 20px;
@@ -57,6 +43,25 @@
       padding: 6px 12px;
       border-radius: 6px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #b2ebf2;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0f7fa;
     }
   </style>
 </head>
@@ -73,7 +78,7 @@
 
     <div class="section">
       <div class="label">Last Updated:</div>
-      <div>October 19, 2025</div>
+      <div id="lastUpdated"></div>
     </div>
 
     <div class="section">
@@ -87,31 +92,23 @@
     </div>
 
     <div class="section">
+      <div class="label">Search Inventory:</div>
+      <input type="text" id="searchBox" placeholder="Search by ID, piece, or description..." onkeyup="filterInventory()" />
+    </div>
+
+    <div class="section">
       <div class="label">Belt Inventory:</div>
-      <div class="status">
-        <strong>U03001B-0</strong><br>
-        PIECE: BSA01040000BC<br>
-        Designation: LISTE DE PIECES<br>
-        Description: SPARE PARTS LIST
-      </div>
-      <div class="status">
-        <strong>U03001B-1</strong><br>
-        PIECE: BSA1104328400<br>
-        Designation: COURROIE PLATE 35/6X5060<br>
-        Description: FLAT BELT
-      </div>
-      <div class="status">
-        <strong>U03001B-2</strong><br>
-        PIECE: BSA1104326800<br>
-        Designation: COURROIE PLATE 40/6.5X1640<br>
-        Description: FLAT BELT
-      </div>
-      <div class="status">
-        <strong>U03001B-3</strong><br>
-        PIECE: BSA1104326500<br>
-        Designation: COURROIE CRANTEE 1600-8M-30 35/6X5060<br>
-        Description: TOOTHED BELT
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Piece #</th>
+            <th>Designation</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="beltInventoryTable"></tbody>
+      </table>
     </div>
 
     <div class="section">
@@ -119,5 +116,6 @@
       <div>Scan the printed QR label to access this page on mobile.</div>
     </div>
   </div>
-</body>
-</html>
+
+  <script>
+    const beltInventory
