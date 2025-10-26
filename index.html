@@ -68,34 +68,27 @@
 <body>
   <div class="container">
     <div class="branding">Xander Adams Systems</div>
-
     <h1>Gluer Belt Inventory Log</h1>
-
     <div class="section">
       <div class="label">Machine Location:</div>
       <div>Menasha Philly Plant – Gluer Station</div>
     </div>
-
     <div class="section">
       <div class="label">Last Updated:</div>
       <div id="lastUpdated"></div>
     </div>
-
     <div class="section">
       <div class="label">Status:</div>
       <div class="status">✅ In Stock – No reorder needed</div>
     </div>
-
     <div class="section">
       <div class="label">Linked OneNote Page:</div>
       <div><a href="https://1drv.ms/o/c/35b820388d83ca71/EpavftDEHsJJinoiy4-eSPABZBwM1Ei4gFKt7gnAmdHcIA?e=ePVeK4" target="_blank">Open Inventory Log</a></div>
     </div>
-
     <div class="section">
       <div class="label">Search Inventory:</div>
       <input type="text" id="searchBox" placeholder="Search by EAM #, piece, or location..." onkeyup="filterInventory()" />
     </div>
-
     <div class="section">
       <div class="label">Belt Inventory:</div>
       <table>
@@ -112,13 +105,11 @@
         <tbody id="beltInventoryTable"></tbody>
       </table>
     </div>
-
     <div class="section">
       <div class="label">QR Code:</div>
       <div>Scan the printed QR label to access this page on mobile.</div>
     </div>
   </div>
-
   <script>
     const beltInventory = [
       {
@@ -144,11 +135,28 @@
         description: "1600-8M-30 35/6X5060",
         row: "01",
         column: "03"
+      },
+      // Add new belts from gluer belts.docx images here
+      // Example placeholder: Replace with actual data from image1.png to image13.png
+      {
+        eam: "",
+        piece: "1104328500",
+        designation: "R01-C04",
+        description: "45/7X6000",
+        row: "01",
+        column: "04"
+      },
+      {
+        eam: "",
+        piece: "1104326900",
+        designation: "R02-C01",
+        description: "50/8X2000",
+        row: "02",
+        column: "01"
       }
+      // Continue adding entries as needed
     ];
-
     const tableBody = document.getElementById("beltInventoryTable");
-
     function renderTable(data) {
       tableBody.innerHTML = "";
       data.forEach(belt => {
@@ -164,7 +172,6 @@
         tableBody.appendChild(row);
       });
     }
-
     function filterInventory() {
       const query = document.getElementById("searchBox").value.toLowerCase();
       const filtered = beltInventory.filter(belt =>
@@ -177,7 +184,6 @@
       );
       renderTable(filtered);
     }
-
     document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString();
     renderTable(beltInventory);
   </script>
