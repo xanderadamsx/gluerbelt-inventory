@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reorder Belt Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 30px;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #0057b8;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #0057b8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #003f8a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Reorder Belt Request</h1>
+    <form>
+      <label for="eam">EAM #</label>
+      <input type="text" id="eam" name="eam" readonly />
+
+      <label for="piece">Piece #</label>
+      <input type="text" id="piece" name="piece" readonly />
+
+      <label for="quantity">Quantity Needed</label>
+      <input type="number" id="quantity" name="quantity" min="1" required />
+
+      <label for="notes">Additional Notes</label>
+      <textarea id="notes" name="notes" rows="4" placeholder="Reason for reorder, urgency, vendor info..."></textarea>
+
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById("eam").value = urlParams.get("eam") || "";
+    document.getElementById("piece").value = urlParams.get("piece") || "";
+  </script>
+</body>
+</html>
