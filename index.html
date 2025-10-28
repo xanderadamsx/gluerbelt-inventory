@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,8 +9,22 @@
       font-family: Arial, sans-serif;
       background: #f4f4f4;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       color: #333;
+    }
+    nav {
+      background: #0057b8;
+      padding: 10px;
+      text-align: right;
+    }
+    nav a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+    nav a:hover {
+      text-decoration: underline;
     }
     .container {
       max-width: 1100px;
@@ -64,9 +78,21 @@
     th {
       background-color: #e0f7fa;
     }
+    a.reorder-link {
+      color: #0057b8;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    a.reorder-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="https://1drv.ms/o/c/35b820388d83ca71/EpavftDEHsJJinoiy4-eSPABZBwM1Ei4gFKt7gnAmdHcIA?e=ePVeK4" target="_blank">🧠 Philly Collective Brain</a>
+  </nav>
+
   <div class="container">
     <div class="branding">Xander Adams Systems</div>
 
@@ -97,6 +123,7 @@
             <th>Designation</th>
             <th>Description</th>
             <th>Internal Notes</th>
+            <th>Reorder</th>
           </tr>
         </thead>
         <tbody id="beltInventoryTable"></tbody>
@@ -141,35 +168,4 @@
     ];
 
     function renderTable(data) {
-      const tableBody = document.getElementById("beltInventoryTable");
-      tableBody.innerHTML = "";
-      data.forEach(belt => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${belt.eam}</td>
-          <td>${belt.piece}</td>
-          <td>${belt.designation}</td>
-          <td>${belt.description}</td>
-          <td>${belt.notes}</td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-
-    function filterInventory() {
-      const query = document.getElementById("searchBox").value.toLowerCase();
-      const filtered = beltInventory.filter(belt =>
-        belt.eam.toLowerCase().includes(query) ||
-        belt.piece.toLowerCase().includes(query) ||
-        belt.designation.toLowerCase().includes(query) ||
-        belt.description.toLowerCase().includes(query) ||
-        belt.notes.toLowerCase().includes(query)
-      );
-      renderTable(filtered);
-    }
-
-    document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString();
-    renderTable(beltInventory);
-  </script>
-</body>
-</html>
+      const tableBody = document.getElement
