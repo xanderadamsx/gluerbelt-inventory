@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -133,40 +133,73 @@
 
   <script>
     const beltInventory = [
-      { eam: "240341", piece: "1104328400", designation: "R01-C01", description: "", notes: "" },
-      { eam: "235595", piece: "1104326800", designation: "R01-C02", description: "", notes: "" },
-      { eam: "", piece: "1104176500", designation: "R01-C03", description: "", notes: "" },
-      { eam: "236594", piece: "1104327200", designation: "R01-C04", description: "", notes: "" },
-      { eam: "236595", piece: "1104328100", designation: "R01-C05", description: "", notes: "" },
-      { eam: "", piece: "1104327100", designation: "R01-C06", description: "", notes: "" },
-      { eam: "235599", piece: "1104328600", designation: "R01-C07", description: "", notes: "" },
-      { eam: "185475", piece: "1104346400", designation: "R01-C08", description: "", notes: "" },
-      { eam: "", piece: "1104329000", designation: "R01-C09", description: "", notes: "" },
-      { eam: "", piece: "1104344900", designation: "R01-C10", description: "", notes: "" },
-      { eam: "235598", piece: "1104329600", designation: "R01-C11", description: "", notes: "" },
-      { eam: "235596", piece: "1104329700", designation: "R01-C12", description: "", notes: "" },
-      { eam: "", piece: "1104326600", designation: "R01-C13", description: "", notes: "" },
-      { eam: "", piece: "1104391500", designation: "R01-C14", description: "", notes: "" },
-      { eam: "", piece: "1104347900", designation: "R01-C15", description: "", notes: "" },
-      { eam: "239519", piece: "1104342100", designation: "R01-C16", description: "", notes: "" },
-      { eam: "185475", piece: "1104346400", designation: "R01-C17", description: "", notes: "" },
-      { eam: "235889", piece: "1104329100", designation: "R01-C18", description: "", notes: "" },
-      { eam: "240339", piece: "1104342000", designation: "R01-C19", description: "", notes: "" },
-      { eam: "", piece: "1104214400", designation: "R01-C20", description: "", notes: "" },
-      { eam: "", piece: "1104336200", designation: "R01-C21", description: "", notes: "" },
-      { eam: "239527", piece: "1104341900", designation: "R01-C22", description: "", notes: "" },
-      { eam: "", piece: "1104376600", designation: "R01-C23", description: "", notes: "" },
-      { eam: "238013", piece: "1104341800", designation: "R01-C24", description: "", notes: "" },
-      { eam: "", piece: "1104345800", designation: "R01-C25", description: "", notes: "" },
-      { eam: "", piece: "1104329500", designation: "R01-C26", description: "", notes: "" },
-      { eam: "", piece: "1104376700", designation: "R01-C27", description: "", notes: "" },
-      { eam: "", piece: "1104335000", designation: "R01-C28", description: "", notes: "" },
-      { eam: "239526", piece: "1104329800", designation: "R01-C29", description: "", notes: "" },
-      { eam: "236913", piece: "1104329900", designation: "R01-C30", description: "", notes: "" },
-      { eam: "236593", piece: "1104326500", designation: "R01-C31", description: "", notes: "" },
-      { eam: "", piece: "11043277100", designation: "R01-C32", description: "", notes: "" }
+      { eam: "240341", piece: "1104328400" },
+      { eam: "235595", piece: "1104326800" },
+      { eam: "", piece: "1104176500" },
+      { eam: "236594", piece: "1104327200" },
+      { eam: "236595", piece: "1104328100" },
+      { eam: "", piece: "1104327100" },
+      { eam: "235599", piece: "1104328600" },
+      { eam: "185475", piece: "1104346400" },
+      { eam: "", piece: "1104329000" },
+      { eam: "", piece: "1104344900" },
+      { eam: "235598", piece: "1104329600" },
+      { eam: "235596", piece: "1104329700" },
+      { eam: "", piece: "1104326600" },
+      { eam: "", piece: "1104391500" },
+      { eam: "", piece: "1104347900" },
+      { eam: "239519", piece: "1104342100" },
+      { eam: "185475", piece: "1104346400" },
+      { eam: "235889", piece: "1104329100" },
+      { eam: "240339", piece: "1104342000" },
+      { eam: "", piece: "1104214400" },
+      { eam: "", piece: "1104336200" },
+      { eam: "239527", piece: "1104341900" },
+      { eam: "", piece: "1104376600" },
+      { eam: "238013", piece: "1104341800" },
+      { eam: "", piece: "1104345800" },
+      { eam: "", piece: "1104329500" },
+      { eam: "", piece: "1104376700" },
+      { eam: "", piece: "1104335000" },
+      { eam: "239526", piece: "1104329800" },
+      { eam: "236913", piece: "1104329900" },
+      { eam: "236593", piece: "1104326500" },
+      { eam: "", piece: "11043277100" }
     ];
 
     function renderTable(data) {
-      const tableBody = document.getElementById("belt
-      renderTable(beltInventory);                                          
+      const tableBody = document.getElementById("beltInventoryTable");
+      tableBody.innerHTML = "";
+      data.forEach((belt, index) => {
+        const row = document.createElement("tr");
+        const designation = `R01-C${String(index + 1).padStart(2, '0')}`;
+        row.innerHTML = `
+          <td>${belt.eam}</td>
+          <td>${belt.piece}</td>
+          <td>${designation}</td>
+          <td></td>
+          <td></td>
+          <td><a class="reorder-link" href="reorder.html?eam=${belt.eam}&piece=${belt.piece}" target="_blank">Reorder</a></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function filterInventory() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const filtered = beltInventory.filter((belt, index) => {
+        const designation = `R01-C${String(index + 1).padStart(2, '0')}`;
+        return (
+          belt.eam.toLowerCase().includes(query) ||
+          belt.piece.toLowerCase().includes(query) ||
+          designation.toLowerCase().includes(query)
+        );
+      });
+      renderTable(filtered);
+    }
+
+    document.getElementById("lastUpdated").textContent = new Date().toLocaleDateString();
+    renderTable(beltInventory);
+  </script>
+</body>
+</html>
