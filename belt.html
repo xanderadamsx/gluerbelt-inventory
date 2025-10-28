@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belt Detail Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 30px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #0057b8;
+    }
+    .info {
+      margin-top: 20px;
+    }
+    .info label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    .info div {
+      margin-top: 5px;
+    }
+    .back-link {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+      font-weight: bold;
+      color: #0057b8;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Belt Detail</h1>
+    <div class="info">
+      <label>EAM #</label>
+      <div id="eam"></div>
+
+      <label>Piece #</label>
+      <div id="piece"></div>
+
+      <label>Designation</label>
+      <div id="designation"></div>
+
+      <label>Inventory Info</label>
+      <div>Qty: 3 | Vendor: Flexco | Last Ordered: Oct 2025</div>
+
+      <label>Notes</label>
+      <div>Installed on Folder Gluer 2. Reorder every 6 months. Watch for wear near seam.</div>
+    </div>
+
+    <a class="back-link" href="index.html">← Back to Inventory</a>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const eam = urlParams.get("eam") || "";
+    const piece = urlParams.get("piece") || "";
+
+    document.getElementById("eam").textContent = eam;
+    document.getElementById("piece").textContent = piece;
+
+    const index = [
+      "240341","235595","241593","236594","236595","241595","235599","185475","241596","241597",
+      "235598","235596","241598","241599","241600","239519","185475","235889","240339","241601",
+      "241602","239527","241603","238013","241604","241605","241606","241607","239526","236913",
+      "236593","241608"
+    ].indexOf(eam);
+
+    const designation = index >= 0 ? `R01-C${String(index + 1).padStart(2, '0')}` : "Unknown";
+    document.getElementById("designation").textContent = designation;
+  </script>
+</body>
+</html>
