@@ -123,7 +123,7 @@
             <th>Designation</th>
             <th>Description</th>
             <th>Internal Notes</th>
-            <th>Reorder</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="beltInventoryTable"></tbody>
@@ -172,18 +172,17 @@
       tableBody.innerHTML = "";
       data.forEach((belt, index) => {
         const designation = `R01-C${String(index + 1).padStart(2, '0')}`;
-        row = document.createElement("tr");
+        const row = document.createElement("tr");
         row.innerHTML = `
           <td>${belt.eam}</td>
           <td>${belt.piece}</td>
           <td>${designation}</td>
           <td></td>
-          <td>
-  <a class="reorder-link" href="reorder.html?eam=${belt.eam}&piece=${belt.piece}" target="_blank">Reorder</a><br>
-  <a class="reorder-link" href="belt.html?eam=${belt.eam}&piece=${belt.piece}" target="_blank">Details</a>
-</td>
           <td></td>
-          <td><a class="reorder-link" href="reorder.html?eam=${belt.eam}&piece=${belt.piece}" target="_blank">Reorder</a></td>
+          <td>
+            <a class="reorder-link" href="reorder.html?eam=${belt.eam}&piece=${belt.piece}" target="_blank">Reorder</a><br>
+            <a class="reorder-link" href="belt.html?eam=${belt.eam}&piece=${belt.piece}" target="_blank">Details</a>
+          </td>
         `;
         tableBody.appendChild(row);
       });
