@@ -135,44 +135,44 @@
     const beltInventory = [
       { eam: "240341", piece: "1104328400" },
       { eam: "235595", piece: "1104326800" },
-      { eam: "", piece: "1104176500" },
+      { eam: "241593", piece: "1104176500" },
       { eam: "236594", piece: "1104327200" },
       { eam: "236595", piece: "1104328100" },
-      { eam: "", piece: "1104327100" },
+      { eam: "241595", piece: "1104327100" },
       { eam: "235599", piece: "1104328600" },
       { eam: "185475", piece: "1104346400" },
-      { eam: "", piece: "1104329000" },
-      { eam: "", piece: "1104344900" },
+      { eam: "241596", piece: "1104329000" },
+      { eam: "241597", piece: "1104344900" },
       { eam: "235598", piece: "1104329600" },
       { eam: "235596", piece: "1104329700" },
-      { eam: "", piece: "1104326600" },
-      { eam: "", piece: "1104391500" },
-      { eam: "", piece: "1104347900" },
+      { eam: "241598", piece: "1104326600" },
+      { eam: "241599", piece: "1104391500" },
+      { eam: "241600", piece: "1104347900" },
       { eam: "239519", piece: "1104342100" },
       { eam: "185475", piece: "1104346400" },
       { eam: "235889", piece: "1104329100" },
       { eam: "240339", piece: "1104342000" },
-      { eam: "", piece: "1104214400" },
-      { eam: "", piece: "1104336200" },
+      { eam: "241601", piece: "1104214400" },
+      { eam: "241602", piece: "1104336200" },
       { eam: "239527", piece: "1104341900" },
-      { eam: "", piece: "1104376600" },
+      { eam: "241603", piece: "1104376600" },
       { eam: "238013", piece: "1104341800" },
-      { eam: "", piece: "1104345800" },
-      { eam: "", piece: "1104329500" },
-      { eam: "", piece: "1104376700" },
-      { eam: "", piece: "1104335000" },
+      { eam: "241604", piece: "1104345800" },
+      { eam: "241605", piece: "1104329500" },
+      { eam: "241606", piece: "1104376700" },
+      { eam: "241607", piece: "1104335000" },
       { eam: "239526", piece: "1104329800" },
       { eam: "236913", piece: "1104329900" },
       { eam: "236593", piece: "1104326500" },
-      { eam: "", piece: "11043277100" }
+      { eam: "241608", piece: "11043277100" }
     ];
 
     function renderTable(data) {
       const tableBody = document.getElementById("beltInventoryTable");
       tableBody.innerHTML = "";
       data.forEach((belt, index) => {
-        const row = document.createElement("tr");
         const designation = `R01-C${String(index + 1).padStart(2, '0')}`;
+        row = document.createElement("tr");
         row.innerHTML = `
           <td>${belt.eam}</td>
           <td>${belt.piece}</td>
