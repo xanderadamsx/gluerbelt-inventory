@@ -41,51 +41,64 @@
 </nav>
 
 <h2 id="floor-assets">📍 Equipment by Location</h2>
-<!-- Add your location tables here -->
+
+<h3>🧱 1st Floor</h3>
+<table>
+  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+  <tr><td>5-Color & 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
+  <tr><td>2000</td><td>Metric</td><td></td></tr>
+  <tr><td>Master Cut</td><td>Metric</td><td></td></tr>
+  <tr><td>Pacific</td><td>Metric</td><td>Mosca Code: 44711</td></tr>
+  <tr><td>Asitrade KP-PH</td><td>Metric</td><td>Serial: 2010-111, Built 2010</td></tr>
+  <tr><td>Asitrade ABST</td><td>Metric</td><td>Serial: 200100111, Built 2010</td></tr>
+  <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
+  <tr><td>Mainline Conveyor System</td><td>Mixed</td><td></td></tr>
+  <tr><td>Back Rails & Conveyor System</td><td>Mixed</td><td></td></tr>
+  <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
+  <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
+</table>
+
+<h3>🧱 2nd Floor</h3>
+<table>
+  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+  <tr><td>1600</td><td>Metric</td><td></td></tr>
+  <tr><td>Automaton</td><td>Mixed</td><td></td></tr>
+  <tr><td>Domino</td><td>Standard</td><td></td></tr>
+</table>
+
+<h3>🏢 501 Building</h3>
+<table>
+  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+  <tr><td>Expertfold 1</td><td>Metric</td><td></td></tr>
+  <tr><td>Expertfold 2</td><td>Metric</td><td></td></tr>
+  <tr><td>Expertfold 1 Bundler</td><td>Standard</td><td></td></tr>
+  <tr><td>Expertfold 2 Bundler</td><td>Standard</td><td></td></tr>
+  <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
+  <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
+  <tr><td>Hauger</td><td>—</td><td></td></tr>
+</table>
+
+<h3>🏔️ Roof Top</h3>
+<table>
+  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+  <tr><td>Hauger Shred Vacuum System</td><td>Mixed</td><td></td></tr>
+</table>
+
+<h3>🧱 Conveyor Systems</h3>
+<table>
+  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+  <tr><td>ACS Conveyor System</td><td>Mixed</td><td>Serial: DRF600, 460V 3PH, Built 2002</td></tr>
+</table>
 
 <h2 id="serial-log">🧾 Equipment Serial Log</h2>
-<!-- Add your serial log table here -->
-
-<h2 id="troubleshooting">🧠 Troubleshooting References</h2>
-<!-- Add your troubleshooting sections here -->
+<table>
+  <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
+  <tr><td>2010-111</td><td>Feeder Module</td><td>KP-PH</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
+  <tr><td>200100111</td><td>Feeder Module</td><td>ABST</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
+  <tr><td>DRF600</td><td>Conveyor System</td><td>ACS BP6306-B-1</td><td><a href="#">Placeholder</a></td><td>460V 3PH, Built 2002</td></tr>
+  <tr><td>0351 005 04</td><td>Industrial Printer</td><td>Domino 165 Matic</td><td><a href="#">Placeholder</a></td><td>240V AC, Single Phase</td></tr>
+</table>
 
 <h2 id="blueprints">📂 Equipment Blueprints</h2>
 <table>
-  <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
-  <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
-  <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
-  <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
-  <tr><td>Loadformer</td><td>P13843</td><td><a href="#">Placeholder</a></td></tr>
-  <tr><td>Strapping Machine</td><td>108085</td><td><a href="#">Placeholder</a></td></tr>
-</table>
-
-<h2 id="belt-mapping">🔗 Belt Mapping</h2>
-<p>Coming soon: Each machine will link to belts used, with quantity and reorder links.</p>
-
-<script>
-  function runSearch() {
-    const query = document.getElementById('searchBar').value.toLowerCase();
-    const tables = document.querySelectorAll('table');
-
-    tables.forEach(table => {
-      const rows = table.querySelectorAll('tr');
-      rows.forEach((row, index) => {
-        if (index === 0) {
-          row.style.display = ''; // always show header
-          return;
-        }
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
-    });
-  }
-
-  document.getElementById('searchBar').addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      runSearch();
-    }
-  });
-</script>
-
-</body>
-</html>
+  <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></
