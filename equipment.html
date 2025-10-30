@@ -22,8 +22,44 @@
 <p>Centralized reference for all plant assets, belt usage, schematics, and maintenance tracking.</p>
 
 <div style="margin-bottom: 20px;">
-  <input type="text" id="searchBar" placeholder="🔍 Search by serial, model, location, or notes...">
-  <button id="searchButton" onclick="runSearch()">Search</button>
+ <script>
+  function runSearch() {
+    const query = document.getElementById('searchBar').value.toLowerCase();
+    const tables = document.querySelectorAll('table');
+
+    tables.forEach(table => {
+      const rows = table.querySelectorAll('tr');
+      rows.forEach((row, index) => {
+        const cells = row.querySelectorAll('td');
+        if (index === 0) {
+          row.style.display = ''; // always show header
+          return;
+        }
+
+        let matchFound = false;
+        cells.forEach(cell => {
+          const text = cell.textContent;
+          const lowerText = text.toLowerCase();
+          if (lowerText.includes(query) && query !== '') {
+            matchFound = true;
+            const regex = new RegExp(`(${query})`, 'gi');
+            cell.innerHTML = text.replace(regex, '<mark>$1</mark>');
+          } else {
+            cell.innerHTML = text; // reset if no match
+          }
+        });
+
+        row.style.display = matchFound || query === '' ? '' : 'none';
+      });
+    });
+  }
+
+  document.getElementById('searchBar').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      runSearch();
+    }
+  });
+</script>
 </div>
 
 <nav>
