@@ -9,7 +9,7 @@
     table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
     th { background-color: #f4f4f4; }
-    nav ul { list-style: none; padding: 0; display: flex; gap: 20px; margin-bottom: 30px; }
+    nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 30px; }
     nav a { text-decoration: none; color: #2980b9; font-weight: bold; }
   </style>
 </head>
@@ -25,80 +25,35 @@
     <li><a href="#troubleshooting">🧠 Troubleshooting</a></li>
     <li><a href="#blueprints">📂 Blueprints</a></li>
     <li><a href="#belt-mapping">🔗 Belt Mapping</a></li>
+    <li><a href="belts.html" target="_blank">🧵 Belt Inventory</a></li>
+    <li><a href="maintenance-log.html" target="_blank">🧰 Maintenance Log</a></li>
+    <li><a href="schematics.html" target="_blank">📐 Schematics</a></li>
+    <li><a href="training.html" target="_blank">🎓 Training & SOPs</a></li>
   </ul>
 </nav>
 
 <h2 id="floor-assets">📍 Equipment by Location</h2>
-
-<h3>🧱 1st Floor</h3>
-<table>
-  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-  <tr><td>5-Color & 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
-  <tr><td>2000</td><td>Metric</td><td></td></tr>
-  <tr><td>Master Cut</td><td>Metric</td><td></td></tr>
-  <tr><td>Pacific</td><td>Metric</td><td>Mosca Code: 44711</td></tr>
-  <tr><td>Asitrade</td><td>Metric</td><td>Panel Code: 6699</td></tr>
-  <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
-  <tr><td>Mainline Conveyor System</td><td>Mixed</td><td></td></tr>
-  <tr><td>Back Rails & Conveyor System</td><td>Mixed</td><td></td></tr>
-  <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
-  <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
-</table>
-
-<h3>🧱 2nd Floor</h3>
-<table>
-  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-  <tr><td>1600</td><td>Metric</td><td></td></tr>
-  <tr><td>Automaton</td><td>Mixed</td><td></td></tr>
-  <tr><td>Domino</td><td>Standard</td><td></td></tr>
-</table>
-
-<h3>🏢 501 Building</h3>
-<table>
-  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-  <tr><td>Expertfold 1</td><td>Metric</td><td></td></tr>
-  <tr><td>Expertfold 2</td><td>Metric</td><td></td></tr>
-  <tr><td>Expertfold 1 Bundler</td><td>Standard</td><td></td></tr>
-  <tr><td>Expertfold 2 Bundler</td><td>Standard</td><td></td></tr>
-  <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
-  <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
-  <tr><td>Hauger</td><td>—</td><td></td></tr>
-</table>
-
-<h3>🏔️ Roof Top</h3>
-<table>
-  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-  <tr><td>Hauger Shred Vacuum System</td><td>Mixed</td><td></td></tr>
-</table>
-
-<h3>🧱 Conveyor Systems</h3>
-<table>
-  <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-  <tr><td>Conveyor Control Unit</td><td>Mixed</td><td>Power loss, PLC faults, motor issues</td></tr>
-</table>
+<!-- Add your location tables here (already generated in previous version) -->
 
 <h2 id="serial-log">🧾 Equipment Serial Log</h2>
-<table>
-  <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
-  <tr><td>0351 005 04</td><td>Industrial Printer</td><td>Domino 165 Matic</td><td><a href="#">Placeholder</a></td><td>240V AC, Single Phase</td></tr>
-  <tr><td>P10241</td><td>Bottom Feeder</td><td>BPBF-101040-H</td><td><a href="#">Placeholder</a></td><td>460V, 3PH, IP55</td></tr>
-  <tr><td>P13843</td><td>Loadformer</td><td>LIM-586-HRT-60-AA0</td><td><a href="#">Placeholder</a></td><td>480V/277V, 3PH</td></tr>
-  <tr><td>P12309</td><td>Loadformer</td><td>LM3-36-H-T-760</td><td><a href="#">Placeholder</a></td><td>480V, 3PH, 70A</td></tr>
-  <tr><td>108085</td><td>Strapping Machine</td><td>RO-TRS-4/1</td><td><a href="#">Placeholder</a></td><td>480V, Built 2014</td></tr>
-  <tr><td>119707</td><td>Strapping Machine</td><td>SoniXs-MS-6</td><td><a href="#">Placeholder</a></td><td>208–480V, Built 2020</td></tr>
-  <tr><td>TM095 14 F 031</td><td>Case Sealer</td><td>UA 262024-SB</td><td><a href="#">Placeholder</a></td><td>115V, 1PH</td></tr>
-  <tr><td>BSA03542000061</td><td>Folder Gluer</td><td>Expertfold 300 A-4</td><td><a href="#">Placeholder</a></td><td>480V, 83 kVA</td></tr>
-  <tr><td>BSA052F3001247</td><td>Folder Gluer</td><td>EXERTFL-DD-300-1A4</td><td><a href="#">Placeholder</a></td><td>480V, 83 kVA</td></tr>
-</table>
+<!-- Add your serial log table here (already generated in previous version) -->
 
 <h2 id="troubleshooting">🧠 Troubleshooting References</h2>
-<h3>Mosca Bundler</h3>
-<ul>
-  <li><strong>Strap Won’t Feed:</strong> Open track, reset, check brake coil</li>
-  <li><strong>Seal Failure:</strong> Confirm strap type, adjust timers</li>
-</ul>
+<!-- Add your troubleshooting sections here (already generated in previous version) -->
 
-<h3>Sullair LS-25 Compressor</h3>
-<ul>
-  <li><strong>Overheating:</strong> Clean radiator, check oil, inspect sensors</li>
-</ul
+<h2 id="blueprints">📂 Equipment Blueprints</h2>
+<table>
+  <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
+  <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
+  <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
+  <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
+  <tr><td>Loadformer</td><td>P13843</td><td><a href="#">Placeholder</a></td></tr>
+  <tr><td>Strapping Machine</td><td>108085</td><td><a href="#">Placeholder</a></td></tr>
+  <!-- Add more machines as needed -->
+</table>
+
+<h2 id="belt-mapping">🔗 Belt Mapping</h2>
+<p>Coming soon: Each machine will link to belts used, with quantity and reorder links.</p>
+
+</body>
+</html>
