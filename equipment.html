@@ -23,8 +23,8 @@
 
 <div id="loginScreen">
   <h2>🔐 Login to Menasha Hub</h2>
-  <input type="text" id="username" placeholder="Username" required><br><br>
-  <input type="password" id="password" placeholder="Password" required><br><br>
+  <input type="text" id="username" placeholder="Username"><br><br>
+  <input type="password" id="password" placeholder="Password"><br><br>
   <button onclick="checkLogin()">Login</button>
   <p id="loginError" style="color:red;"></p>
 </div>
@@ -40,9 +40,7 @@
     <ul>
       <li><a href="#floor-assets">📍 Floor Assets</a></li>
       <li><a href="#serial-log">🧾 Serial Log</a></li>
-      <li><a href="#troubleshooting">🧠 Troubleshooting</a></li>
       <li><a href="#blueprints">📂 Blueprints</a></li>
-      <li><a href="#belt-mapping">🔗 Belt Mapping</a></li>
       <li><a href="belts.html" target="_blank">🧵 Belt Inventory</a></li>
       <li><a href="maintenance-log.html" target="_blank">🧰 Maintenance Log</a></li>
       <li><a href="schematics.html" target="_blank">📐 Schematics</a></li>
@@ -51,7 +49,6 @@
   </nav>
 
   <h2 id="floor-assets">📍 Equipment by Location</h2>
-  <h3>🧱 1st Floor</h3>
   <table>
     <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
     <tr><td>5-Color & 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
@@ -67,38 +64,6 @@
     <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
   </table>
 
-  <h3>🧱 2nd Floor</h3>
-  <table>
-    <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-    <tr><td>1600</td><td>Metric</td><td></td></tr>
-    <tr><td>Automaton</td><td>Mixed</td><td></td></tr>
-    <tr><td>Domino</td><td>Standard</td><td></td></tr>
-  </table>
-
-  <h3>🏢 501 Building</h3>
-  <table>
-    <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-    <tr><td>Expertfold 1</td><td>Metric</td><td></td></tr>
-    <tr><td>Expertfold 2</td><td>Metric</td><td></td></tr>
-    <tr><td>Expertfold 1 Bundler</td><td>Standard</td><td></td></tr>
-    <tr><td>Expertfold 2 Bundler</td><td>Standard</td><td></td></tr>
-    <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
-    <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
-    <tr><td>Hauger</td><td>—</td><td></td></tr>
-  </table>
-
-  <h3>🏔️ Roof Top</h3>
-  <table>
-    <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-    <tr><td>Hauger Shred Vacuum System</td><td>Mixed</td><td></td></tr>
-  </table>
-
-  <h3>🧱 Conveyor Systems</h3>
-  <table>
-    <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-    <tr><td>ACS Conveyor System</td><td>Mixed</td><td>Serial: DRF600, 460V 3PH, Built 2002</td></tr>
-  </table>
-
   <h2 id="serial-log">🧾 Equipment Serial Log</h2>
   <table>
     <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
@@ -110,4 +75,67 @@
 
   <h2 id="blueprints">📂 Equipment Blueprints</h2>
   <table>
-    <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th
+    <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
+    <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
+    <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
+    <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
+  </table>
+</div>
+
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (user === "cabron" && pass === "wherearemy") {
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("appContent").style.display = "block";
+    } else {
+      document.getElementById("loginError").textContent = "Invalid credentials. Try again.";
+    }
+  }
+
+  function runSearch() {
+    const query = document.getElementById('searchBar').value.toLowerCase();
+    const tables = document.querySelectorAll('table');
+
+    tables.forEach(table => {
+      const rows = table.querySelectorAll('tr');
+      rows.forEach((row, index) => {
+        const cells = row.querySelectorAll('td');
+        if (index === 0) {
+          row.style.display = '';
+          return;
+        }
+
+        let matchFound = false;
+        cells.forEach(cell => {
+          const text = cell.textContent;
+          const lowerText = text.toLowerCase();
+          if (lowerText.includes(query) && query !== '') {
+            matchFound = true;
+            const regex = new RegExp(`(${query})`, 'gi');
+            cell.innerHTML = text.replace(regex, '<mark>$1</mark>');
+          } else {
+            cell.innerHTML = text;
+          }
+        });
+
+        row.style.display = matchFound || query === '' ? '' : 'none';
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchBar = document.getElementById('searchBar');
+    if (searchBar) {
+      searchBar.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          runSearch();
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
