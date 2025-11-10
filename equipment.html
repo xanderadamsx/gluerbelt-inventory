@@ -33,6 +33,9 @@
   <h1>🛠️ Menasha PHL Equipment Hub</h1>
   <p>Centralized reference for all plant assets, belt usage, schematics, and maintenance tracking.</p>
 
+  <input type="text" id="searchBar" placeholder="Search equipment, serials, notes...">
+  <button id="searchButton" onclick="runSearch()">Search</button>
+
   <nav>
     <ul>
       <li><a href="#floor-assets">📍 Floor Assets</a></li>
@@ -48,7 +51,6 @@
   </nav>
 
   <h2 id="floor-assets">📍 Equipment by Location</h2>
-
   <h3>🧱 1st Floor</h3>
   <table>
     <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
@@ -108,6 +110,4 @@
 
   <h2 id="blueprints">📂 Equipment Blueprints</h2>
   <table>
-    <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
-    <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
-    <tr><td>Expertfold
+    <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th
