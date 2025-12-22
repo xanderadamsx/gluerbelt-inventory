@@ -21,6 +21,7 @@
 </head>
 <body>
 
+<!-- LOGIN SCREEN -->
 <div id="loginScreen">
   <h2>🔐 Login to Menasha Hub</h2>
   <input type="text" id="username" placeholder="Username"><br><br>
@@ -29,6 +30,7 @@
   <p id="loginError" style="color:red;"></p>
 </div>
 
+<!-- MAIN APP -->
 <div id="appContent">
   <h1>🛠️ Menasha PHL Equipment Hub</h1>
   <p>Centralized reference for all plant assets, belt usage, schematics, and maintenance tracking.</p>
@@ -83,10 +85,12 @@
 </div>
 
 <script>
+  // LOGIN FUNCTION
   function checkLogin() {
     const user = document.getElementById("username").value;
     const pass = document.getElementById("password").value;
-    if (user === "cabron" && pass === "wherearemy") {
+
+    if (user === "maintenance" && pass === "password") {
       document.getElementById("loginScreen").style.display = "none";
       document.getElementById("appContent").style.display = "block";
     } else {
@@ -94,29 +98,33 @@
     }
   }
 
+  // CLEAN SEARCH FUNCTION
   function runSearch() {
     const query = document.getElementById('searchBar').value.toLowerCase();
     const tables = document.querySelectorAll('table');
 
     tables.forEach(table => {
       const rows = table.querySelectorAll('tr');
+
       rows.forEach((row, index) => {
         const cells = row.querySelectorAll('td');
+
+        // Skip header row
         if (index === 0) {
           row.style.display = '';
           return;
         }
 
         let matchFound = false;
+
         cells.forEach(cell => {
-          const text = cell.textContent;
-          const lowerText = text.toLowerCase();
-          if (lowerText.includes(query) && query !== '') {
+          const originalText = cell.textContent; // always clean
+          cell.innerHTML = originalText; // reset
+
+          if (query !== '' && originalText.toLowerCase().includes(query)) {
             matchFound = true;
             const regex = new RegExp(`(${query})`, 'gi');
-            cell.innerHTML = text.replace(regex, '<mark>$1</mark>');
-          } else {
-            cell.innerHTML = text;
+            cell.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
           }
         });
 
@@ -125,15 +133,14 @@
     });
   }
 
+  // ENTER KEY SUPPORT
   document.addEventListener("DOMContentLoaded", () => {
     const searchBar = document.getElementById('searchBar');
-    if (searchBar) {
-      searchBar.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-          runSearch();
-        }
-      });
-    }
+    searchBar.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        runSearch();
+      }
+    });
   });
 </script>
 
