@@ -13,6 +13,7 @@
       --nav-link: #2980b9;
       --button-bg: #2980b9;
       --button-text: #ffffff;
+      --border-subtle: #d0d0d0;
     }
 
     body.dark {
@@ -23,6 +24,7 @@
       --nav-link: #82c7ff;
       --button-bg: #3b82f6;
       --button-text: #ffffff;
+      --border-subtle: #555555;
     }
 
     body {
@@ -54,13 +56,22 @@
       color: var(--text);
     }
 
+    nav {
+      position: sticky;
+      top: 80px;
+      background-color: var(--bg);
+      z-index: 900;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
     nav ul {
       list-style: none;
       padding: 0;
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      margin-bottom: 30px;
+      margin: 0 0 10px 0;
     }
 
     nav a {
@@ -93,6 +104,16 @@
     .export-btn:hover,
     #exportAllBtn:hover {
       opacity: 0.9;
+    }
+
+    #searchResults {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    body.dark #searchResults {
+      color: #aaaaaa;
     }
 
     mark {
@@ -132,12 +153,76 @@
       transform: scale(1.15);
     }
 
+    /* LOGO */
+    #logoWrapper {
+      max-width: 180px;
+      margin-bottom: 10px;
+    }
+
+    #teamLogo {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* COLLAPSIBLE SECTIONS */
+    .section {
+      margin-bottom: 20px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      background-color: var(--bg);
+    }
+
+    .collapse-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: none;
+      background-color: var(--table-bg);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .collapse-btn span.arrow {
+      font-size: 16px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .section-body {
+      padding: 10px 12px 14px 12px;
+    }
+
+    .section-body.collapsed {
+      display: none;
+    }
+
+    /* VERSION TAG */
+    #versionTag {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #777;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 8px;
+      text-align: right;
+    }
+
+    body.dark #versionTag {
+      color: #aaaaaa;
+    }
+
     /* MOBILE */
     @media (max-width: 600px) {
       #searchBar { width: 100%; margin-bottom: 10px; }
       #searchButton { width: 100%; margin-left: 0; margin-bottom: 10px; }
       nav ul { gap: 10px; }
       .export-btn { margin-left: 0; margin-bottom: 10px; }
+      nav { top: 90px; }
+      #logoWrapper { max-width: 140px; }
     }
   </style>
 </head>
@@ -158,17 +243,23 @@
 
 <!-- MAIN APP -->
 <div id="appContent">
+  <!-- TEAM LOGO (update src to your logo file path in the repo) -->
+  <div id="logoWrapper">
+    <img id="teamLogo" src="menasha-maintenance-logo.png" alt="Menasha Maintenance Philadelphia 1189 logo">
+  </div>
+
   <h1>🛠️ Menasha PHL Equipment Hub</h1>
   <p>Centralized reference for all plant assets, belt usage, schematics, and maintenance tracking.</p>
 
   <input type="text" id="searchBar" placeholder="Search equipment, serials, notes...">
   <button id="searchButton" onclick="runSearch()">Search</button>
+  <div id="searchResults"></div>
 
   <nav>
     <ul>
-      <li><a href="#floor-assets">📍 Floor Assets</a></li>
-      <li><a href="#serial-log">🧾 Serial Log</a></li>
-      <li><a href="#blueprints">📂 Blueprints</a></li>
+      <li><a href="#floor-assets-section">📍 Floor Assets</a></li>
+      <li><a href="#serial-log-section">🧾 Serial Log</a></li>
+      <li><a href="#blueprints-section">📂 Blueprints</a></li>
 
       <!-- Menasha internal belt page -->
       <li><a href="belts.html" target="_blank">🧵 Belt Inventory</a></li>
@@ -204,56 +295,84 @@
     </ul>
   </nav>
 
-  <h2 id="floor-assets">📍 Equipment by Location</h2>
-  <button class="export-btn" onclick="exportTableToCSV('floor-assets-table', 'floor_assets.csv')">
-    Export Floor Assets CSV
-  </button>
-  <table id="floor-assets-table">
-    <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-    <tr><td>5-Color & 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
-    <tr><td>2000</td><td>Metric</td><td></td></tr>
-    <tr><td>Master Cut</td><td>Metric</td><td></td></tr>
-    <tr><td>Pacific</td><td>Metric</td><td>Mosca Code: 44711</td></tr>
-    <tr><td>Asitrade KP-PH</td><td>Metric</td><td>Serial: 2010-111, Built 2010</td></tr>
-    <tr><td>Asitrade ABST</td><td>Metric</td><td>Serial: 200100111, Built 2010</td></tr>
-    <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
-    <tr><td>Mainline Conveyor System</td><td>Mixed</td><td></td></tr>
-    <tr><td>Back Rails & Conveyor System</td><td>Mixed</td><td></td></tr>
-    <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
-    <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
-  </table>
+  <!-- FLOOR ASSETS SECTION -->
+  <div id="floor-assets-section" class="section">
+    <button class="collapse-btn" data-target="floor-assets-body">
+      <span class="arrow">▼</span>
+      📍 Equipment by Location
+    </button>
+    <div id="floor-assets-body" class="section-body">
+      <button class="export-btn" onclick="exportTableToCSV('floor-assets-table', 'floor_assets.csv')">
+        Export Floor Assets CSV
+      </button>
+      <table id="floor-assets-table">
+        <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+        <tr><td>5-Color & 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
+        <tr><td>2000</td><td>Metric</td><td></td></tr>
+        <tr><td>Master Cut</td><td>Metric</td><td></td></tr>
+        <tr><td>Pacific</td><td>Metric</td><td>Mosca Code: 44711</td></tr>
+        <tr><td>Asitrade KP-PH</td><td>Metric</td><td>Serial: 2010-111, Built 2010</td></tr>
+        <tr><td>Asitrade ABST</td><td>Metric</td><td>Serial: 200100111, Built 2010</td></tr>
+        <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
+        <tr><td>Mainline Conveyor System</td><td>Mixed</td><td></td></tr>
+        <tr><td>Back Rails & Conveyor System</td><td>Mixed</td><td></td></tr>
+        <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
+        <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
+      </table>
+    </div>
+  </div>
 
-  <h2 id="serial-log">🧾 Equipment Serial Log</h2>
-  <button class="export-btn" onclick="exportTableToCSV('serial-log-table', 'serial_log.csv')">
-    Export Serial Log CSV
-  </button>
-  <table id="serial-log-table">
-    <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
-    <tr><td>2010-111</td><td>Feeder Module</td><td>KP-PH</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
-    <tr><td>200100111</td><td>Feeder Module</td><td>ABST</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
-    <tr><td>DRF600</td><td>Conveyor System</td><td>ACS BP6306-B-1</td><td><a href="#">Placeholder</a></td><td>460V 3PH, Built 2002</td></tr>
-    <tr><td>0351 005 04</td><td>Industrial Printer</td><td>Domino 165 Matic</td><td><a href="#">Placeholder</a></td><td>240V AC, Single Phase</td></tr>
-  </table>
+  <!-- SERIAL LOG SECTION -->
+  <div id="serial-log-section" class="section">
+    <button class="collapse-btn" data-target="serial-log-body">
+      <span class="arrow">▼</span>
+      🧾 Equipment Serial Log
+    </button>
+    <div id="serial-log-body" class="section-body">
+      <button class="export-btn" onclick="exportTableToCSV('serial-log-table', 'serial_log.csv')">
+        Export Serial Log CSV
+      </button>
+      <table id="serial-log-table">
+        <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
+        <tr><td>2010-111</td><td>Feeder Module</td><td>KP-PH</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
+        <tr><td>200100111</td><td>Feeder Module</td><td>ABST</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
+        <tr><td>DRF600</td><td>Conveyor System</td><td>ACS BP6306-B-1</td><td><a href="#">Placeholder</a></td><td>460V 3PH, Built 2002</td></tr>
+        <tr><td>0351 005 04</td><td>Industrial Printer</td><td>Domino 165 Matic</td><td><a href="#">Placeholder</a></td><td>240V AC, Single Phase</td></tr>
+      </table>
+    </div>
+  </div>
 
-  <h2 id="blueprints">📂 Equipment Blueprints</h2>
-  <button class="export-btn" onclick="exportTableToCSV('blueprints-table', 'blueprints.csv')">
-    Export Blueprints CSV
-  </button>
-  <table id="blueprints-table">
-    <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
-    <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
-    <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
-    <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
-  </table>
+  <!-- BLUEPRINTS SECTION -->
+  <div id="blueprints-section" class="section">
+    <button class="collapse-btn" data-target="blueprints-body">
+      <span class="arrow">▼</span>
+      📂 Equipment Blueprints
+    </button>
+    <div id="blueprints-body" class="section-body">
+      <button class="export-btn" onclick="exportTableToCSV('blueprints-table', 'blueprints.csv')">
+        Export Blueprints CSV
+      </button>
+      <table id="blueprints-table">
+        <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
+        <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
+        <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
+        <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
+      </table>
+    </div>
+  </div>
 
   <br>
   <button id="exportAllBtn" onclick="exportAllTablesToCSV('menasha_equipment_hub_all_tables.csv')">
     Export ALL Tables CSV
   </button>
+
+  <div id="versionTag">
+    Version 1.2 — Last Updated Jan 19, 2026
+  </div>
 </div>
 
 <script>
-  // APPLY PERSISTENT DARK MODE ON LOAD + LIVE SEARCH BINDINGS
+  // APPLY PERSISTENT DARK MODE ON LOAD + LIVE SEARCH BINDINGS + COLLAPSIBLES
   document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("menashaTheme");
     const toggle = document.getElementById("darkToggle");
@@ -272,9 +391,23 @@
       }
     });
 
-    // LIVE SEARCH
     searchBar.addEventListener('input', function () {
       runSearch();
+    });
+
+    // Collapsible sections
+    const collapseButtons = document.querySelectorAll('.collapse-btn');
+    collapseButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const body = document.getElementById(targetId);
+        if (!body) return;
+        const arrow = btn.querySelector('.arrow');
+        const isCollapsed = body.classList.toggle('collapsed');
+        if (arrow) {
+          arrow.textContent = isCollapsed ? '▶' : '▼';
+        }
+      });
     });
   });
 
@@ -304,13 +437,16 @@
     localStorage.setItem("menashaTheme", isDark ? "dark" : "light");
   });
 
-  // SEARCH FUNCTION (USED BY LIVE + BUTTON + ENTER)
+  // SEARCH FUNCTION (USED BY LIVE + BUTTON + ENTER) + RESULT COUNTER
   function runSearch() {
     const query = document.getElementById('searchBar').value.toLowerCase();
     const tables = document.querySelectorAll('table');
+    let totalMatches = 0;
+    let tablesWithMatches = 0;
 
     tables.forEach(table => {
       const rows = table.querySelectorAll('tr');
+      let tableMatches = 0;
 
       rows.forEach((row, index) => {
         const cells = row.querySelectorAll('td');
@@ -335,9 +471,32 @@
           }
         });
 
-        row.style.display = matchFound || query === '' ? '' : 'none';
+        if (matchFound || query === '') {
+          row.style.display = '';
+          if (matchFound) {
+            tableMatches++;
+          }
+        } else {
+          row.style.display = 'none';
+        }
       });
+
+      if (tableMatches > 0) {
+        tablesWithMatches++;
+        totalMatches += tableMatches;
+      }
     });
+
+    const resultsEl = document.getElementById('searchResults');
+    if (query === '') {
+      resultsEl.textContent = '';
+    } else {
+      if (totalMatches === 0) {
+        resultsEl.textContent = 'No results found.';
+      } else {
+        resultsEl.textContent = `${totalMatches} result(s) found across ${tablesWithMatches} table(s).`;
+      }
+    }
   }
 
   // EXPORT SINGLE TABLE TO CSV
