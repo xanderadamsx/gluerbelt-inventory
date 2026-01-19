@@ -169,14 +169,36 @@
       <li><a href="#floor-assets">📍 Floor Assets</a></li>
       <li><a href="#serial-log">🧾 Serial Log</a></li>
       <li><a href="#blueprints">📂 Blueprints</a></li>
+
+      <!-- Menasha internal belt page -->
       <li><a href="belts.html" target="_blank">🧵 Belt Inventory</a></li>
+
       <li><a href="maintenance-log.html" target="_blank">🧰 Maintenance Log</a></li>
       <li><a href="schematics.html" target="_blank">📐 Schematics</a></li>
       <li><a href="training.html" target="_blank">🎓 Training & SOPs</a></li>
+
+      <!-- OneNote -->
       <li>
         <a href="https://onedrive.live.com/personal/35b820388d83ca71/_layouts/15/Doc.aspx?sourcedoc={d07eaf96-1ec4-49c2-8a7a-22cb8f9e48f0}&action=edit&redeem=aHR0cHM6Ly8xZHJ2Lm1zL28vYy8zNWI4MjAzODhkODNjYTcxL0VwYXZmdERFSHNKSmlub2l5NC1lU1BBQlpCd00xRWk0Z0ZLdDdnbkFtZEhjSUE_ZT1lUFZlSzQ&wd=target%28menasha%20ground%20work.one%7C2487b903-8096-4619-8626-0ffd2b720996%2FMenasha%20Maint-%20PHL%7C1795317a-288b-4749-ac42-4e9fa6a3f28e%2F%29&wdorigin=NavigationUrl"
            target="_blank">
           📘 OneNote Machine Log
+        </a>
+      </li>
+
+      <!-- Gluer Belt Suite (GitHub Pages) -->
+      <li>
+        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/" target="_blank">
+          📦 Gluer Belt Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/belt.html" target="_blank">
+          🧵 Gluer Belt Inventory
+        </a>
+      </li>
+      <li>
+        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/reorder.html" target="_blank">
+          🔄 Gluer Belt Reorder
         </a>
       </li>
     </ul>
@@ -330,7 +352,6 @@
       const cols = row.querySelectorAll('th, td');
       let rowData = [];
       cols.forEach(col => {
-        // Strip HTML (e.g., links) and keep text
         let text = col.innerText.replace(/\n/g, ' ').replace(/"/g, '""');
         rowData.push(`"${text}"`);
       });
@@ -354,7 +375,6 @@
       const table = document.getElementById(tbl.id);
       if (!table) return;
 
-      // Section header
       csv.push(`"${tbl.title}"`);
       const rows = table.querySelectorAll('tr');
 
@@ -369,7 +389,7 @@
       });
 
       if (index < tables.length - 1) {
-        csv.push(''); // blank line between tables
+        csv.push('');
       }
     });
 
