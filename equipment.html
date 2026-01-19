@@ -2,381 +2,621 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Menasha PHL Equipment Hub</title>
+  <title>Menasha PHL Equipment Hub — v1.3</title>
 
   <style>
     :root {
       --bg: #ffffff;
-      --text: #2c3e50;
-      --table-bg: #f4f4f4;
-      --highlight: yellow;
-      --nav-link: #2980b9;
-      --button-bg: #2980b9;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --table-bg: #f5f5f5;
+      --highlight: #ffeb3b;
+      --nav-bg: #f9fafb;
+      --nav-border: #e5e7eb;
+      --nav-link: #2563eb;
+      --nav-link-muted: #6b7280;
+      --button-bg: #2563eb;
       --button-text: #ffffff;
-      --border-subtle: #d0d0d0;
+      --button-bg-secondary: #6b7280;
+      --border-subtle: #d1d5db;
+      --section-header-bg: #e5e7eb;
+      --section-header-text: #111827;
+      --shadow-soft: 0 2px 6px rgba(0,0,0,0.08);
     }
 
     body.dark {
-      --bg: #1e1e1e;
-      --text: #e6e6e6;
-      --table-bg: #333333;
-      --highlight: #ffeb3b;
-      --nav-link: #82c7ff;
+      --bg: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --table-bg: #1f2933;
+      --highlight: #facc15;
+      --nav-bg: #020617;
+      --nav-border: #1f2933;
+      --nav-link: #60a5fa;
+      --nav-link-muted: #9ca3af;
       --button-bg: #3b82f6;
-      --button-text: #ffffff;
-      --border-subtle: #555555;
+      --button-text: #f9fafb;
+      --button-bg-secondary: #4b5563;
+      --border-subtle: #374151;
+      --section-header-bg: #111827;
+      --section-header-text: #f9fafb;
+      --shadow-soft: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0 16px 32px 16px;
       background-color: var(--bg);
       color: var(--text);
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    h1, h2, h3 { color: var(--text); }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 10px;
-      overflow-x: auto;
-      display: block;
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th {
-      background-color: var(--table-bg);
+    h1, h2, h3 {
       color: var(--text);
+      margin: 0;
     }
 
-    nav {
-      position: sticky;
-      top: 80px;
-      background-color: var(--bg);
-      z-index: 900;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-subtle);
+    p {
+      margin: 0 0 8px 0;
+      color: var(--muted);
     }
 
-    nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 0 0 10px 0;
+    /* HEADER */
+    header {
+      text-align: center;
+      padding-top: 24px;
+      padding-bottom: 16px;
     }
 
-    nav a {
-      text-decoration: none;
-      color: var(--nav-link);
-      font-weight: bold;
-    }
-
-    #searchBar {
-      width: 70%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-    }
-
-    #searchButton,
-    .export-btn,
-    #exportAllBtn {
-      padding: 8px 16px;
-      font-size: 14px;
-      margin-left: 10px;
-      background-color: var(--button-bg);
-      color: var(--button-text);
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    #searchButton:hover,
-    .export-btn:hover,
-    #exportAllBtn:hover {
-      opacity: 0.9;
-    }
-
-    #searchResults {
-      margin-top: 6px;
-      font-size: 13px;
-      color: #666;
-    }
-
-    body.dark #searchResults {
-      color: #aaaaaa;
-    }
-
-    mark {
-      background-color: var(--highlight);
-      font-weight: bold;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { background-color: transparent; }
-      to { background-color: var(--highlight); }
-    }
-
-    #loginScreen {
-      max-width: 400px;
-      margin: 100px auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      background-color: var(--table-bg);
-    }
-
-    #appContent { display: none; }
-
-    /* DARK MODE TOGGLE */
-    #darkToggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 26px;
-      cursor: pointer;
-      display: none;
-      transition: transform 0.3s;
-      z-index: 1000;
-    }
-
-    #darkToggle:hover {
-      transform: scale(1.15);
-    }
-
-    /* LOGO */
     #logoWrapper {
-      max-width: 180px;
-      margin-bottom: 10px;
+      max-width: 220px;
+      margin: 0 auto 10px auto;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
     }
 
     #teamLogo {
       width: 100%;
       height: auto;
+      border-radius: 8px;
+    }
+
+    body.dark #teamLogo {
+      filter: brightness(1.05) drop-shadow(0 2px 6px rgba(0,0,0,0.7));
+    }
+
+    #hubTitle {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    #hubSubtitle {
+      font-size: 0.95rem;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* DARK MODE TOGGLE */
+    #darkToggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      font-size: 26px;
+      cursor: pointer;
+      display: none;
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+
+    #darkToggle:hover {
+      transform: scale(1.12);
+    }
+
+    /* LOGIN */
+    #loginScreen {
+      max-width: 360px;
+      margin: 80px auto;
+      padding: 20px 18px 18px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background-color: var(--table-bg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    #loginScreen h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    #loginScreen input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.95rem;
+      background-color: #ffffff;
+    }
+
+    body.dark #loginScreen input {
+      background-color: #020617;
+      color: var(--text);
+      border-color: #374151;
+    }
+
+    #loginScreen button {
+      width: 100%;
+      padding: 9px 0;
+      border-radius: 6px;
+      border: none;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    #loginScreen button:hover {
+      opacity: 0.95;
+    }
+
+    #loginError {
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+
+    #appContent {
+      display: none;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: sticky;
+      top: 72px;
+      z-index: 900;
+      background-color: var(--nav-bg);
+      border-radius: 10px;
+      border: 1px solid var(--nav-border);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 16px;
+      padding: 10px 14px 12px 14px;
+    }
+
+    .nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .nav-group-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--nav-link-muted);
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--nav-link);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 3px 0;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* SEARCH BAR */
+    #searchBarRow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 0 6px 0;
+    }
+
+    #searchBar {
+      flex: 1 1 220px;
+      padding: 8px 10px;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background-color: #ffffff;
+    }
+
+    body.dark #searchBar {
+      background-color: #020617;
+      color: var(--text);
+      border-color: #374151;
+    }
+
+    #searchButton,
+    #clearSearchButton {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    #searchButton {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+    }
+
+    #clearSearchButton {
+      background-color: var(--button-bg-secondary);
+      color: var(--button-text);
+    }
+
+    #searchButton:hover,
+    #clearSearchButton:hover {
+      opacity: 0.95;
+    }
+
+    #searchResults {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+      overflow-x: auto;
       display: block;
+      background-color: var(--bg);
+    }
+
+    th, td {
+      border: 1px solid var(--border-subtle);
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: var(--table-bg);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    tr.match-row {
+      animation: fadeRow 0.25s ease-in-out;
+    }
+
+    @keyframes fadeRow {
+      from { background-color: rgba(250, 204, 21, 0.15); }
+      to { background-color: transparent; }
+    }
+
+    mark {
+      background-color: var(--highlight);
+      font-weight: 600;
+      padding: 0 1px;
     }
 
     /* COLLAPSIBLE SECTIONS */
     .section {
-      margin-bottom: 20px;
+      margin-top: 14px;
+      border-radius: 10px;
       border: 1px solid var(--border-subtle);
-      border-radius: 4px;
       background-color: var(--bg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
     }
 
-    .collapse-btn {
+    .section-header {
       width: 100%;
-      text-align: left;
-      padding: 10px 12px;
-      font-size: 16px;
       border: none;
-      background-color: var(--table-bg);
-      color: var(--text);
+      background-color: var(--section-header-bg);
+      color: var(--section-header-text);
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .section-header-left {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .collapse-btn span.arrow {
-      font-size: 16px;
-      width: 18px;
-      text-align: center;
+    .section-header-icon {
+      font-size: 1.1rem;
+    }
+
+    .section-header-title {
+      letter-spacing: 0.02em;
+    }
+
+    .section-header-arrow {
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .section-header.collapsed .section-header-arrow {
+      transform: rotate(-90deg);
     }
 
     .section-body {
-      padding: 10px 12px 14px 12px;
+      padding: 10px 12px 12px 12px;
+      border-top: 1px solid var(--border-subtle);
     }
 
     .section-body.collapsed {
       display: none;
     }
 
-    /* VERSION TAG */
-    #versionTag {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #777;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 8px;
-      text-align: right;
+    .section-actions {
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
     }
 
-    body.dark #versionTag {
-      color: #aaaaaa;
+    .export-btn,
+    #exportAllBtn {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .export-btn:hover,
+    #exportAllBtn:hover {
+      opacity: 0.95;
+    }
+
+    /* VERSION TAG */
+    #versionRow {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 8px;
+    }
+
+    #versionLabel {
+      font-weight: 600;
     }
 
     /* MOBILE */
-    @media (max-width: 600px) {
-      #searchBar { width: 100%; margin-bottom: 10px; }
-      #searchButton { width: 100%; margin-left: 0; margin-bottom: 10px; }
-      nav ul { gap: 10px; }
-      .export-btn { margin-left: 0; margin-bottom: 10px; }
-      nav { top: 90px; }
-      #logoWrapper { max-width: 140px; }
+    @media (max-width: 700px) {
+      body {
+        padding: 0 10px 24px 10px;
+      }
+
+      nav {
+        top: 64px;
+        padding: 8px 10px;
+      }
+
+      .nav-row {
+        gap: 10px;
+      }
+
+      #logoWrapper {
+        max-width: 180px;
+      }
+
+      #hubTitle {
+        font-size: 1.6rem;
+      }
+
+      .section-body {
+        padding: 8px 10px 10px 10px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<!-- DARK MODE TOGGLE (hidden until login) -->
+<!-- DARK MODE TOGGLE -->
 <div id="darkToggle">🌙</div>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
-  <h2>🔐 Login to Menasha Hub</h2>
-  <input type="text" id="username" placeholder="Username"><br><br>
-  <input type="password" id="password" placeholder="Password"><br><br>
+  <h2>🔐 Menasha PHL Equipment Hub</h2>
+  <p>Restricted access — maintenance & tech team only.</p>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
   <button onclick="checkLogin()">Login</button>
-  <p id="loginError" style="color:red;"></p>
+  <p id="loginError" style="color:#dc2626;"></p>
 </div>
 
 <!-- MAIN APP -->
 <div id="appContent">
-  <!-- TEAM LOGO (update src to your logo file path in the repo) -->
-  <div id="logoWrapper">
-    <img id="teamLogo" src="menasha-maintenance-logo.png" alt="Menasha Maintenance Philadelphia 1189 logo">
-  </div>
+  <main>
+    <header>
+      <div id="logoWrapper">
+        <img id="teamLogo"
+             src="https://raw.githubusercontent.com/xanderadamsx/gluerbelt-inventory/refs/heads/main/menasha%20emblem2.0.png"
+             alt="Menasha Maintenance Philadelphia 1189 logo">
+      </div>
+      <h1 id="hubTitle">Menasha PHL Equipment Hub</h1>
+      <p id="hubSubtitle">Centralized reference for plant assets, belts, schematics, and maintenance tracking.</p>
+    </header>
 
-  <h1>🛠️ Menasha PHL Equipment Hub</h1>
-  <p>Centralized reference for all plant assets, belt usage, schematics, and maintenance tracking.</p>
-
-  <input type="text" id="searchBar" placeholder="Search equipment, serials, notes...">
-  <button id="searchButton" onclick="runSearch()">Search</button>
-  <div id="searchResults"></div>
-
-  <nav>
-    <ul>
-      <li><a href="#floor-assets-section">📍 Floor Assets</a></li>
-      <li><a href="#serial-log-section">🧾 Serial Log</a></li>
-      <li><a href="#blueprints-section">📂 Blueprints</a></li>
-
-      <!-- Menasha internal belt page -->
-      <li><a href="belts.html" target="_blank">🧵 Belt Inventory</a></li>
-
-      <li><a href="maintenance-log.html" target="_blank">🧰 Maintenance Log</a></li>
-      <li><a href="schematics.html" target="_blank">📐 Schematics</a></li>
-      <li><a href="training.html" target="_blank">🎓 Training & SOPs</a></li>
-
-      <!-- OneNote -->
-      <li>
+    <!-- NAVIGATION -->
+    <nav>
+      <div class="nav-row">
+        <span class="nav-group-label">Core Hub</span>
+        <a href="#floor-assets-section">📍 Floor Assets</a>
+        <a href="#serial-log-section">🧾 Serial Log</a>
+        <a href="#blueprints-section">📂 Blueprints</a>
+      </div>
+      <div class="nav-row">
+        <span class="nav-group-label">Belt Suite</span>
+        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/" target="_blank">📦 Gluer Belt Dashboard</a>
+        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/belt.html" target="_blank">🧵 Gluer Belt Inventory</a>
+        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/reorder.html" target="_blank">🔄 Gluer Belt Reorder</a>
+      </div>
+      <div class="nav-row">
+        <span class="nav-group-label">Support</span>
+        <a href="maintenance-log.html" target="_blank">🧰 Maintenance Log</a>
+        <a href="schematics.html" target="_blank">📐 Schematics</a>
+        <a href="training.html" target="_blank">🎓 Training &amp; SOPs</a>
         <a href="https://onedrive.live.com/personal/35b820388d83ca71/_layouts/15/Doc.aspx?sourcedoc={d07eaf96-1ec4-49c2-8a7a-22cb8f9e48f0}&action=edit&redeem=aHR0cHM6Ly8xZHJ2Lm1zL28vYy8zNWI4MjAzODhkODNjYTcxL0VwYXZmdERFSHNKSmlub2l5NC1lU1BBQlpCd00xRWk0Z0ZLdDdnbkFtZEhjSUE_ZT1lUFZlSzQ&wd=target%28menasha%20ground%20work.one%7C2487b903-8096-4619-8626-0ffd2b720996%2FMenasha%20Maint-%20PHL%7C1795317a-288b-4749-ac42-4e9fa6a3f28e%2F%29&wdorigin=NavigationUrl"
            target="_blank">
           📘 OneNote Machine Log
         </a>
-      </li>
+      </div>
+    </nav>
 
-      <!-- Gluer Belt Suite (GitHub Pages) -->
-      <li>
-        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/" target="_blank">
-          📦 Gluer Belt Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/belt.html" target="_blank">
-          🧵 Gluer Belt Inventory
-        </a>
-      </li>
-      <li>
-        <a href="https://xanderadamsx.github.io/gluerbelt-inventory/reorder.html" target="_blank">
-          🔄 Gluer Belt Reorder
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <!-- SEARCH BAR -->
+    <section id="searchSection">
+      <div id="searchBarRow">
+        <input type="text" id="searchBar" placeholder="Search equipment, serials, notes..." />
+        <button id="searchButton" onclick="runSearch()">
+          🔍 Search
+        </button>
+        <button id="clearSearchButton" onclick="clearSearch()">
+          ✖ Clear
+        </button>
+      </div>
+      <div id="searchResults"></div>
+    </section>
 
-  <!-- FLOOR ASSETS SECTION -->
-  <div id="floor-assets-section" class="section">
-    <button class="collapse-btn" data-target="floor-assets-body">
-      <span class="arrow">▼</span>
-      📍 Equipment by Location
-    </button>
-    <div id="floor-assets-body" class="section-body">
-      <button class="export-btn" onclick="exportTableToCSV('floor-assets-table', 'floor_assets.csv')">
-        Export Floor Assets CSV
+    <!-- FLOOR ASSETS SECTION -->
+    <section id="floor-assets-section" class="section">
+      <button class="section-header" data-target="floor-assets-body">
+        <div class="section-header-left">
+          <span class="section-header-icon">📍</span>
+          <span class="section-header-title">Equipment by Location</span>
+        </div>
+        <span class="section-header-arrow">▼</span>
       </button>
-      <table id="floor-assets-table">
-        <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
-        <tr><td>5-Color & 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
-        <tr><td>2000</td><td>Metric</td><td></td></tr>
-        <tr><td>Master Cut</td><td>Metric</td><td></td></tr>
-        <tr><td>Pacific</td><td>Metric</td><td>Mosca Code: 44711</td></tr>
-        <tr><td>Asitrade KP-PH</td><td>Metric</td><td>Serial: 2010-111, Built 2010</td></tr>
-        <tr><td>Asitrade ABST</td><td>Metric</td><td>Serial: 200100111, Built 2010</td></tr>
-        <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
-        <tr><td>Mainline Conveyor System</td><td>Mixed</td><td></td></tr>
-        <tr><td>Back Rails & Conveyor System</td><td>Mixed</td><td></td></tr>
-        <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
-        <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
-      </table>
-    </div>
-  </div>
+      <div id="floor-assets-body" class="section-body">
+        <div class="section-actions">
+          <button class="export-btn" onclick="exportTableToCSV('floor-assets-table', 'floor_assets.csv')">
+            ⬇ Export Floor Assets CSV
+          </button>
+        </div>
+        <table id="floor-assets-table">
+          <tr><th>Asset</th><th>Tool Type</th><th>Notes</th></tr>
+          <tr><td>5-Color &amp; 7-Color Presses</td><td>Standard</td><td>Access Code: 42883</td></tr>
+          <tr><td>2000</td><td>Metric</td><td></td></tr>
+          <tr><td>Master Cut</td><td>Metric</td><td></td></tr>
+          <tr><td>Pacific</td><td>Metric</td><td>Mosca Code: 44711</td></tr>
+          <tr><td>Asitrade KP-PH</td><td>Metric</td><td>Serial: 2010-111, Built 2010</td></tr>
+          <tr><td>Asitrade ABST</td><td>Metric</td><td>Serial: 200100111, Built 2010</td></tr>
+          <tr><td>Pallet Wrap Station</td><td>Standard</td><td></td></tr>
+          <tr><td>Mainline Conveyor System</td><td>Mixed</td><td></td></tr>
+          <tr><td>Back Rails &amp; Conveyor System</td><td>Mixed</td><td></td></tr>
+          <tr><td>Baler</td><td>Standard</td><td>Bale Master</td></tr>
+          <tr><td>Bander (back side)</td><td>Metric</td><td></td></tr>
+        </table>
+      </div>
+    </section>
 
-  <!-- SERIAL LOG SECTION -->
-  <div id="serial-log-section" class="section">
-    <button class="collapse-btn" data-target="serial-log-body">
-      <span class="arrow">▼</span>
-      🧾 Equipment Serial Log
-    </button>
-    <div id="serial-log-body" class="section-body">
-      <button class="export-btn" onclick="exportTableToCSV('serial-log-table', 'serial_log.csv')">
-        Export Serial Log CSV
+    <!-- SERIAL LOG SECTION -->
+    <section id="serial-log-section" class="section">
+      <button class="section-header" data-target="serial-log-body">
+        <div class="section-header-left">
+          <span class="section-header-icon">🧾</span>
+          <span class="section-header-title">Equipment Serial Log</span>
+        </div>
+        <span class="section-header-arrow">▼</span>
       </button>
-      <table id="serial-log-table">
-        <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
-        <tr><td>2010-111</td><td>Feeder Module</td><td>KP-PH</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
-        <tr><td>200100111</td><td>Feeder Module</td><td>ABST</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
-        <tr><td>DRF600</td><td>Conveyor System</td><td>ACS BP6306-B-1</td><td><a href="#">Placeholder</a></td><td>460V 3PH, Built 2002</td></tr>
-        <tr><td>0351 005 04</td><td>Industrial Printer</td><td>Domino 165 Matic</td><td><a href="#">Placeholder</a></td><td>240V AC, Single Phase</td></tr>
-      </table>
-    </div>
-  </div>
+      <div id="serial-log-body" class="section-body">
+        <div class="section-actions">
+          <button class="export-btn" onclick="exportTableToCSV('serial-log-table', 'serial_log.csv')">
+            ⬇ Export Serial Log CSV
+          </button>
+        </div>
+        <table id="serial-log-table">
+          <tr><th>Serial</th><th>Type</th><th>Model</th><th>Blueprint</th><th>Notes</th></tr>
+          <tr><td>2010-111</td><td>Feeder Module</td><td>KP-PH</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
+          <tr><td>200100111</td><td>Feeder Module</td><td>ABST</td><td><a href="#">Placeholder</a></td><td>Asitrade, Built 2010</td></tr>
+          <tr><td>DRF600</td><td>Conveyor System</td><td>ACS BP6306-B-1</td><td><a href="#">Placeholder</a></td><td>460V 3PH, Built 2002</td></tr>
+          <tr><td>0351 005 04</td><td>Industrial Printer</td><td>Domino 165 Matic</td><td><a href="#">Placeholder</a></td><td>240V AC, Single Phase</td></tr>
+        </table>
+      </div>
+    </section>
 
-  <!-- BLUEPRINTS SECTION -->
-  <div id="blueprints-section" class="section">
-    <button class="collapse-btn" data-target="blueprints-body">
-      <span class="arrow">▼</span>
-      📂 Equipment Blueprints
-    </button>
-    <div id="blueprints-body" class="section-body">
-      <button class="export-btn" onclick="exportTableToCSV('blueprints-table', 'blueprints.csv')">
-        Export Blueprints CSV
+    <!-- BLUEPRINTS SECTION -->
+    <section id="blueprints-section" class="section">
+      <button class="section-header" data-target="blueprints-body">
+        <div class="section-header-left">
+          <span class="section-header-icon">📂</span>
+          <span class="section-header-title">Equipment Blueprints</span>
+        </div>
+        <span class="section-header-arrow">▼</span>
       </button>
-      <table id="blueprints-table">
-        <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
-        <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
-        <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
-        <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
-      </table>
-    </div>
-  </div>
+      <div id="blueprints-body" class="section-body">
+        <div class="section-actions">
+          <button class="export-btn" onclick="exportTableToCSV('blueprints-table', 'blueprints.csv')">
+            ⬇ Export Blueprints CSV
+          </button>
+        </div>
+        <table id="blueprints-table">
+          <tr><th>Machine</th><th>Serial Number</th><th>Blueprint Link</th></tr>
+          <tr><td>Expertfold 1</td><td>BSA03542000061</td><td><a href="#">Placeholder</a></td></tr>
+          <tr><td>Expertfold 2</td><td>BSA052F3001247</td><td><a href="#">Placeholder</a></td></tr>
+          <tr><td>Domino 165 Matic</td><td>0351 005 04</td><td><a href="#">Placeholder</a></td></tr>
+        </table>
+      </div>
+    </section>
 
-  <br>
-  <button id="exportAllBtn" onclick="exportAllTablesToCSV('menasha_equipment_hub_all_tables.csv')">
-    Export ALL Tables CSV
-  </button>
+    <!-- EXPORT ALL -->
+    <section style="margin-top: 14px;">
+      <button id="exportAllBtn" onclick="exportAllTablesToCSV('menasha_equipment_hub_all_tables.csv')">
+        ⬇ Export ALL Tables CSV
+      </button>
+    </section>
 
-  <div id="versionTag">
-    Version 1.2 — Last Updated Jan 19, 2026
-  </div>
+    <!-- VERSION ROW -->
+    <footer id="versionRow">
+      <span id="versionLabel">Version 1.3 — Menasha PHL Equipment Hub</span>
+      <span id="versionDate"></span>
+    </footer>
+  </main>
 </div>
 
 <script>
-  // APPLY PERSISTENT DARK MODE ON LOAD + LIVE SEARCH BINDINGS + COLLAPSIBLES
+  // INITIALIZE ON LOAD
   document.addEventListener("DOMContentLoaded", () => {
+    // Theme
     const savedTheme = localStorage.getItem("menashaTheme");
     const toggle = document.getElementById("darkToggle");
-
     if (savedTheme === "dark") {
       document.body.classList.add("dark");
       toggle.textContent = "☀️";
@@ -384,37 +624,56 @@
       toggle.textContent = "🌙";
     }
 
-    const searchBar = document.getElementById('searchBar');
-    searchBar.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
+    // Dark toggle visibility (only after login, but we set listener here)
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      toggle.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("menashaTheme", isDark ? "dark" : "light");
+    });
+
+    // Search bindings
+    const searchBar = document.getElementById("searchBar");
+    searchBar.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
         runSearch();
       }
     });
-
-    searchBar.addEventListener('input', function () {
+    searchBar.addEventListener("input", () => {
       runSearch();
     });
 
     // Collapsible sections
-    const collapseButtons = document.querySelectorAll('.collapse-btn');
-    collapseButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-target');
+    const sectionHeaders = document.querySelectorAll(".section-header");
+    sectionHeaders.forEach(header => {
+      header.addEventListener("click", () => {
+        const targetId = header.getAttribute("data-target");
         const body = document.getElementById(targetId);
         if (!body) return;
-        const arrow = btn.querySelector('.arrow');
-        const isCollapsed = body.classList.toggle('collapsed');
+        const arrow = header.querySelector(".section-header-arrow");
+        const isCollapsed = body.classList.toggle("collapsed");
+        header.classList.toggle("collapsed", isCollapsed);
         if (arrow) {
-          arrow.textContent = isCollapsed ? '▶' : '▼';
+          arrow.textContent = isCollapsed ? "▶" : "▼";
         }
       });
     });
+
+    // Version date
+    const versionDateEl = document.getElementById("versionDate");
+    const now = new Date();
+    const formatted = now.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit"
+    });
+    versionDateEl.textContent = `Last updated ${formatted}`;
   });
 
-  // LOGIN FUNCTION
+  // LOGIN
   function checkLogin() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
 
     if (
       (user === "cabron" && pass === "wherearemy") ||
@@ -428,31 +687,32 @@
     }
   }
 
-  // DARK MODE TOGGLE
-  const toggle = document.getElementById("darkToggle");
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    const isDark = document.body.classList.contains("dark");
-    toggle.textContent = isDark ? "☀️" : "🌙";
-    localStorage.setItem("menashaTheme", isDark ? "dark" : "light");
-  });
+  // SEARCH + CLEAR
+  function normalizeText(text) {
+    return text.toLowerCase().replace(/\s+/g, " ").trim();
+  }
 
-  // SEARCH FUNCTION (USED BY LIVE + BUTTON + ENTER) + RESULT COUNTER
   function runSearch() {
-    const query = document.getElementById('searchBar').value.toLowerCase();
-    const tables = document.querySelectorAll('table');
+    const queryRaw = document.getElementById("searchBar").value;
+    const query = normalizeText(queryRaw);
+    const tables = document.querySelectorAll("table");
     let totalMatches = 0;
     let tablesWithMatches = 0;
 
     tables.forEach(table => {
-      const rows = table.querySelectorAll('tr');
+      const rows = table.querySelectorAll("tr");
       let tableMatches = 0;
 
       rows.forEach((row, index) => {
-        const cells = row.querySelectorAll('td');
+        const cells = row.querySelectorAll("td, th");
 
+        // Always show header row
         if (index === 0) {
-          row.style.display = '';
+          row.style.display = "";
+          row.classList.remove("match-row");
+          cells.forEach(cell => {
+            cell.innerHTML = cell.textContent;
+          });
           return;
         }
 
@@ -460,24 +720,28 @@
 
         cells.forEach(cell => {
           const originalText = cell.textContent;
-          const lowerText = originalText.toLowerCase();
+          const normalized = normalizeText(originalText);
 
+          // Reset cell
           cell.innerHTML = originalText;
 
-          if (query !== '' && lowerText.includes(query)) {
+          if (query && normalized.includes(query)) {
             matchFound = true;
-            const regex = new RegExp(`(${query})`, 'gi');
-            cell.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
+            const regex = new RegExp("(" + queryRaw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+            cell.innerHTML = originalText.replace(regex, "<mark>$1</mark>");
           }
         });
 
-        if (matchFound || query === '') {
-          row.style.display = '';
-          if (matchFound) {
-            tableMatches++;
-          }
+        if (!query) {
+          row.style.display = "";
+          row.classList.remove("match-row");
+        } else if (matchFound) {
+          row.style.display = "";
+          row.classList.add("match-row");
+          tableMatches++;
         } else {
-          row.style.display = 'none';
+          row.style.display = "none";
+          row.classList.remove("match-row");
         }
       });
 
@@ -487,45 +751,48 @@
       }
     });
 
-    const resultsEl = document.getElementById('searchResults');
-    if (query === '') {
-      resultsEl.textContent = '';
+    const resultsEl = document.getElementById("searchResults");
+    if (!query) {
+      resultsEl.textContent = "";
+    } else if (totalMatches === 0) {
+      resultsEl.textContent = "No results found.";
     } else {
-      if (totalMatches === 0) {
-        resultsEl.textContent = 'No results found.';
-      } else {
-        resultsEl.textContent = `${totalMatches} result(s) found across ${tablesWithMatches} table(s).`;
-      }
+      resultsEl.textContent = `${totalMatches} result(s) across ${tablesWithMatches} table(s).`;
     }
   }
 
-  // EXPORT SINGLE TABLE TO CSV
+  function clearSearch() {
+    document.getElementById("searchBar").value = "";
+    runSearch();
+  }
+
+  // EXPORT SINGLE TABLE
   function exportTableToCSV(tableId, filename) {
     const table = document.getElementById(tableId);
     if (!table) return;
 
     let csv = [];
-    const rows = table.querySelectorAll('tr');
+    const rows = table.querySelectorAll("tr");
 
     rows.forEach(row => {
-      const cols = row.querySelectorAll('th, td');
+      const cols = row.querySelectorAll("th, td");
       let rowData = [];
       cols.forEach(col => {
-        let text = col.innerText.replace(/\n/g, ' ').replace(/"/g, '""');
+        let text = col.innerText.replace(/\n/g, " ").replace(/"/g, '""');
         rowData.push(`"${text}"`);
       });
-      csv.push(rowData.join(','));
+      csv.push(rowData.join(","));
     });
 
-    downloadCSV(csv.join('\n'), filename);
+    downloadCSV(csv.join("\n"), filename);
   }
 
-  // EXPORT ALL TABLES TO ONE CSV
+  // EXPORT ALL TABLES
   function exportAllTablesToCSV(filename) {
     const tables = [
-      { id: 'floor-assets-table', title: 'Floor Assets' },
-      { id: 'serial-log-table', title: 'Serial Log' },
-      { id: 'blueprints-table', title: 'Blueprints' }
+      { id: "floor-assets-table", title: "Floor Assets" },
+      { id: "serial-log-table", title: "Serial Log" },
+      { id: "blueprints-table", title: "Blueprints" }
     ];
 
     let csv = [];
@@ -535,29 +802,29 @@
       if (!table) return;
 
       csv.push(`"${tbl.title}"`);
-      const rows = table.querySelectorAll('tr');
+      const rows = table.querySelectorAll("tr");
 
       rows.forEach(row => {
-        const cols = row.querySelectorAll('th, td');
+        const cols = row.querySelectorAll("th, td");
         let rowData = [];
         cols.forEach(col => {
-          let text = col.innerText.replace(/\n/g, ' ').replace(/"/g, '""');
+          let text = col.innerText.replace(/\n/g, " ").replace(/"/g, '""');
           rowData.push(`"${text}"`);
         });
-        csv.push(rowData.join(','));
+        csv.push(rowData.join(","));
       });
 
       if (index < tables.length - 1) {
-        csv.push('');
+        csv.push("");
       }
     });
 
-    downloadCSV(csv.join('\n'), filename);
+    downloadCSV(csv.join("\n"), filename);
   }
 
   // DOWNLOAD HELPER
   function downloadCSV(csvContent, filename) {
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
